@@ -44,8 +44,8 @@ map ,q :e ~/buffer
 map ,cd :cd %:p:h
 map ,tm :tabmove
 map ,tc :tabclose
-map ,te :tabedit
-map ,tn :tabnew %
+map ,te :tabedit  
+map ,tn :tabnew  
 map ,bd :Bclose
 nmap ,fu :se ff=unix
 nmap ,fd :se ff=dos
@@ -133,6 +133,7 @@ set printoptions=paper:letter
 set ruler
 set runtimepath=~/.vim,/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/after
 set scrolloff=7
+set shiftwidth=4
 set showmatch
 set showtabline=2
 set smartindent
@@ -141,7 +142,7 @@ set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{CurDir()}%h\ \ \ Line:\ %l/%L:%c
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 set noswapfile
 set switchbuf=usetab
-set textwidth=500
+set textwidth=79
 set viminfo='10,\"100,:20,%,n~/.viminfo
 set whichwrap=b,s,<,>,h,l
 set wildignore=*.pyc
@@ -255,7 +256,7 @@ setlocal norelativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
-setlocal shiftwidth=8
+setlocal shiftwidth=4
 setlocal noshortname
 setlocal smartindent
 setlocal softtabstop=4
@@ -270,20 +271,20 @@ setlocal synmaxcol=3000
 if &syntax != 'python'
 setlocal syntax=python
 endif
-setlocal tabstop=8
+setlocal tabstop=4
 setlocal tags=
-setlocal textwidth=500
+setlocal textwidth=79
 setlocal thesaurus=
 setlocal noundofile
 setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-let s:l = 43 - ((42 * winheight(0) + 29) / 59)
+let s:l = 21 - ((20 * winheight(0) + 29) / 59)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-43
+21
 normal! 05|
 tabnext 1
 if exists('s:wipebuf')
