@@ -25,7 +25,6 @@ vnoremap $$ `>a"`<i"
 vnoremap $3 `>a}`<i{
 vnoremap $2 `>a]`<i[
 vnoremap $1 `>a)`<i(
-imap ¤ $a
 vnoremap <silent> * :call VisualSearch('f')
 noremap ,m mmHmt:%s///ge'tzt'm
 map <silent> ,k :tabn
@@ -45,8 +44,8 @@ map ,q :e ~/buffer
 map ,cd :cd %:p:h
 map ,tm :tabmove
 map ,tc :tabclose
-map ,te :tabedit  
-map ,tn :tabnew  
+map ,te :tabedit
+map ,tn :tabnew %
 map ,bd :Bclose
 nmap ,fu :se ff=unix
 nmap ,fd :se ff=dos
@@ -61,13 +60,14 @@ map ,s :source ~/vim_local/vimrc
 nmap ,f :find
 nmap ,w :w!
 map 0 ^
-imap ° 0i
-vmap gx <Plug>NetrwBrowseXVis
+imap Â° 0i
+imap Â¤ $a
+imap Ã¬ :exec "normal f" . leavechara
 nmap gx <Plug>NetrwBrowseX
-imap ì :exec "normal f" . leavechara
-vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
-nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())
-map <F7> :NERDTreeToggle
+vmap <F7> :call Python_Eval_VSplit()
+nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
+nmap <F7> :NERDTreeToggle
+omap <F7> :NERDTreeToggle
 map <F8> :new:read !svn diff:set syntax=diff buftype=nofilegg
 map <F9> ggVGg?
 map <C-Space> ?
@@ -95,10 +95,10 @@ inoremap $1 ():let leavechar=")"i
 imap <d-l> :exec "normal f" . leavechara
 imap <D-0> 0i
 imap <D-$> $a
-vmap ê :m'>+`<my`>mzgv`yo`z
-nmap ê mz:m+`z
-vmap ë :m'<-2`>my`<mzgv`yo`z
-nmap ë mz:m-2`z
+vmap Ã« :m'<-2`>my`<mzgv`yo`z
+vmap Ãª :m'>+`<my`>mzgv`yo`z
+nmap Ã« mz:m-2`z
+nmap Ãª mz:m+`z
 iabbr xname Amir Salihefendic
 iabbr xdate =strftime("%d/%m/%y %H:%M:%S")
 let &cpo=s:cpo_save
@@ -113,9 +113,12 @@ set completeopt=menu
 set cscopeprg=/usr/bin/cscope
 set cscopetag
 set cscopeverbose
+set errorformat=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 set expandtab
+set fileencodings=ucs-bom,utf-8,default,latin1
 set fileformats=unix,dos,mac
 set grepprg=grep\ -nH\ $*
+set helplang=en
 set hidden
 set history=400
 set hlsearch
@@ -123,21 +126,25 @@ set ignorecase
 set incsearch
 set laststatus=2
 set lazyredraw
+set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 set matchtime=2
 set pastetoggle=<F3>
+set printoptions=paper:letter
 set ruler
+set runtimepath=~/.vim,/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/after
 set scrolloff=7
-set shiftwidth=4
 set showmatch
 set showtabline=2
 set smartindent
 set smarttab
 set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{CurDir()}%h\ \ \ Line:\ %l/%L:%c
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 set noswapfile
 set switchbuf=usetab
 set textwidth=500
 set viminfo='10,\"100,:20,%,n~/.viminfo
 set whichwrap=b,s,<,>,h,l
+set wildignore=*.pyc
 set wildmenu
 set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
@@ -148,47 +155,41 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 vimrc
-argglobal
-silent! argdel *
-argadd vimrc
-edit vimrc
+badd +0 config.py
+args config.py
+edit config.py
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
 argglobal
-map <buffer> ,  :w!:source %
-vnoremap <buffer> <silent> [" :exe "normal! gv"|call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
-nnoremap <buffer> <silent> [" :call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
-vnoremap <buffer> <silent> [] m':exe "normal! gv"|call search('^\s*endf*\%[unction]\>', "bW")
-nnoremap <buffer> <silent> [] m':call search('^\s*endf*\%[unction]\>', "bW")
-vnoremap <buffer> <silent> [[ m':exe "normal! gv"|call search('^\s*fu\%[nction]\>', "bW")
-nnoremap <buffer> <silent> [[ m':call search('^\s*fu\%[nction]\>', "bW")
-vnoremap <buffer> <silent> ]" :exe "normal! gv"|call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
-nnoremap <buffer> <silent> ]" :call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
-vnoremap <buffer> <silent> ][ m':exe "normal! gv"|call search('^\s*endf*\%[unction]\>', "W")
-nnoremap <buffer> <silent> ][ m':call search('^\s*endf*\%[unction]\>', "W")
-vnoremap <buffer> <silent> ]] m':exe "normal! gv"|call search('^\s*fu\%[nction]\>', "W")
-nnoremap <buffer> <silent> ]] m':call search('^\s*fu\%[nction]\>', "W")
+map <buffer> ,  :w!:!python %
+inoremap <buffer> $d """"""O
+inoremap <buffer> $p print
+inoremap <buffer> $i import
+inoremap <buffer> $c ### #kla
+inoremap <buffer> $s self
+inoremap <buffer> $r return
+inoreabbr <buffer> cifelse =IMAP_PutTextWithMovement("if <++>:\n<++>\nelse:\n<++>")
+inoreabbr <buffer> cif =IMAP_PutTextWithMovement("if <++>:\n<++>")
+inoreabbr <buffer> cfor =IMAP_PutTextWithMovement("for <++> in <++>:\n<++>")
+inoreabbr <buffer> cclass =IMAP_PutTextWithMovement("class <++>:\n<++>")
+inoreabbr <buffer> cfun =IMAP_PutTextWithMovement("def <++>(<++>):\n<++>\nreturn <++>")
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
-setlocal backupcopy=
 setlocal nobinary
-setlocal nobreakindent
-setlocal breakindentopt=
 setlocal bufhidden=
 setlocal buflisted
 setlocal buftype=
 setlocal cindent
-setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinkeys=0{,0},0),:,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-setlocal comments=sO:\"\ -,mO:\"\ \ ,eO:\"\",:\"
-setlocal commentstring=\"%s
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:XCOMM,n:>,fb:-
+setlocal commentstring=#%s
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
 setlocal conceallevel=0
@@ -205,10 +206,9 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal expandtab
-if &filetype != 'vim'
-setlocal filetype=vim
+if &filetype != 'python'
+setlocal filetype=python
 endif
-setlocal fixendofline
 setlocal foldcolumn=0
 set nofoldenable
 setlocal nofoldenable
@@ -221,32 +221,31 @@ setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=PythonFoldText()
 setlocal formatexpr=
-setlocal formatoptions=croql
+setlocal formatoptions=tcq
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
 setlocal iminsert=0
 setlocal imsearch=0
-setlocal include=
-setlocal includeexpr=
-setlocal indentexpr=GetVimIndent()
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,=end,=else,=cat,=fina,=END,0\\
+setlocal include=^\\s*\\(from\\|import\\)
+setlocal includeexpr=substitute(v:fname,'\\.','/','g')
+setlocal indentexpr=GetPythonIndent(v:lnum)
+setlocal indentkeys=0{,0},:,!^F,o,O,e,<:>,=elif,=except
 setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255,#
-setlocal keywordprg=
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=pydoc
 set linebreak
 setlocal linebreak
 setlocal nolisp
-setlocal lispwords=
 setlocal nolist
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
 setlocal modeline
 setlocal modifiable
-setlocal nrformats=bin,octal,hex
+setlocal nrformats=octal,hex
 set number
 setlocal number
 setlocal numberwidth=4
-setlocal omnifunc=
+setlocal omnifunc=pythoncomplete#Complete
 setlocal path=
 setlocal nopreserveindent
 setlocal nopreviewwindow
@@ -256,39 +255,36 @@ setlocal norelativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
-setlocal shiftwidth=4
+setlocal shiftwidth=8
 setlocal noshortname
-setlocal signcolumn=auto
 setlocal smartindent
-setlocal softtabstop=0
+setlocal softtabstop=4
 setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
 setlocal statusline=
-setlocal suffixesadd=
+setlocal suffixesadd=.py
 setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != 'vim'
-setlocal syntax=vim
+if &syntax != 'python'
+setlocal syntax=python
 endif
-setlocal tabstop=4
-setlocal tagcase=
+setlocal tabstop=8
 setlocal tags=
 setlocal textwidth=500
 setlocal thesaurus=
 setlocal noundofile
-setlocal undolevels=-123456
 setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-let s:l = 135 - ((16 * winheight(0) + 17) / 34)
+let s:l = 43 - ((42 * winheight(0) + 29) / 59)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-135
-normal! 015|
+43
+normal! 05|
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

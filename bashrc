@@ -103,11 +103,22 @@ fi
 
 export PS1="\u@\W>>>\[\e[1m\] " 
 #export PATH=/c/ProgramData/Microsoft/Windows:$PATH
-#export PATH=/home/lcw/work/arm-gcc/arm-eabi-4.4.3/bin:$PATH
-export JAVA_HOME=/e/work/android_tool/jdk1.8.0_111
+#export JAVA_HOME=/e/work/android_tool/jdk1.8.0_111
 #export JAVA_HOME=/home/lcw/soft/jdk1.7.0_75
-export JRE_HOME=$JAVA_HOME/jre  
-export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib
+#export JRE_HOME=$JAVA_HOME/jre  
+#export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib
 #export PATH=$JAVA_HOME/bin:$PATH:$JRE_HOME/bin 
-export PATH=/e/work/bin:$PATH
+#export PATH=/e/work/bin:$PATH
 export SVN_EDITOR=vim
+alias opendir='nautilus'
+if test -e ~/system-config/.bashrc; then
+    . ~/system-config/.bashrc
+    # hooked up for system-config
+fi
+
+PATH="/home/liuchaowei/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/liuchaowei/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/liuchaowei/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/liuchaowei/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/liuchaowei/perl5"; export PERL_MM_OPT;
+
