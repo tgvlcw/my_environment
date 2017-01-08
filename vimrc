@@ -136,7 +136,7 @@ if has("gui_running")
 else
   set background=dark
   colorscheme evening
-  hi CursorLine cterm=bold ctermbg=LightRed ctermfg=white
+  "hi CursorLine cterm=bold ctermbg=LightRed ctermfg=white
   hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white
 endif
 
