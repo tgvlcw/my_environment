@@ -122,3 +122,9 @@ PERL_LOCAL_LIB_ROOT="/home/liuchaowei/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_
 PERL_MB_OPT="--install_base \"/home/liuchaowei/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/liuchaowei/perl5"; export PERL_MM_OPT;
 
+alias g++='g++ -std=c++11'
+export PATH=$PATH:/home/liuchaowei/android/adt-bundle-linux-x86-20140321/sdk/tools:/home/liuchaowei/android/adt-bundle-linux-x86-20140321/sdk/platform-tools
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH
+export CLASSPATH=$CLASSPATH:.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
+export CSCOPE_EDITOR=/usr/bin/vim

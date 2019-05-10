@@ -135,9 +135,10 @@ if has("gui_running")
   colorscheme evening
 else
   set background=dark
-  colorscheme evening
+  colorscheme my_evening
+  "colorscheme blackdust
   "hi CursorLine cterm=bold ctermbg=LightRed ctermfg=white
-  hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white
+  "hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white
 endif
 
 "Some nice mapping to switch syntax (useful if one mixes different languages in one file)
@@ -473,7 +474,7 @@ set fdl=0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Text options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set expandtab
+set noexpandtab
 set shiftwidth=4
 
 map <leader>t2 :set shiftwidth=2<cr>
@@ -664,69 +665,6 @@ map <leader>s? z=
    " Vim section
    """""""""""""""""""""""""""""""
    autocmd FileType vim set nofen
-
-   """""""""""""""""""""""""""""""
-   " Java section
-   """""""""""""""""""""""""""""""
-   au FileType java inoremap <buffer> <C-t> System.out.println();<esc>hi
-
-   "Java comments
-   autocmd FileType java source ~/vim_local/macros/jcommenter.vim
-   autocmd FileType java let b:jcommenter_class_author='Amir Salihefendic (amix@amix.dk)'
-   autocmd FileType java let b:jcommenter_file_author='Amir Salihefendic (amix@amix.dk)'
-   autocmd FileType java map <buffer> <F2> :call JCommentWriter()<cr>
-
-   "Abbr'z
-   autocmd FileType java inoremap <buffer> $pr private
-   autocmd FileType java inoremap <buffer> $r return
-   autocmd FileType java inoremap <buffer> $pu public
-   autocmd FileType java inoremap <buffer> $i import
-   autocmd FileType java inoremap <buffer> $b boolean
-   autocmd FileType java inoremap <buffer> $v void
-   autocmd FileType java inoremap <buffer> $s String
-
-   "Folding
-   function! JavaFold()
-     setl foldmethod=syntax
-     setl foldlevelstart=1
-     syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
-     syn match foldImports /\(\n\?import.\+;\n\)\+/ transparent fold
-
-     function! FoldText()
-       return substitute(getline(v:foldstart), '{.*', '{...}', '')
-     endfunction
-     setl foldtext=FoldText()
-   endfunction
-   au FileType java call JavaFold()
-   au FileType java setl fen
-
-   au BufEnter *.sablecc,*.scc set ft=sablecc
-
-   """"""""""""""""""""""""""""""
-   " JavaScript section
-   """""""""""""""""""""""""""""""
-   au FileType javascript so ~/vim_local/syntax/javascript.vim
-   function! JavaScriptFold()
-     setl foldmethod=syntax
-     setl foldlevelstart=1
-     syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
-
-     function! FoldText()
-       return substitute(getline(v:foldstart), '{.*', '{...}', '')
-     endfunction
-     setl foldtext=FoldText()
-   endfunction
-   au FileType javascript call JavaScriptFold()
-   au FileType javascript setl fen
-
-   au FileType javascript imap <c-t> console.log();<esc>hi
-   au FileType javascript imap <c-a> alert();<esc>hi
-   au FileType javascript setl nocindent
-   au FileType javascript inoremap <buffer> $r return
-
-   au FileType javascript inoremap <buffer> $d //<cr>//<cr>//<esc>ka<space>
-   au FileType javascript inoremap <buffer> $c /**<cr><space><cr>**/<esc>ka
-
 
    """"""""""""""""""""""""""""""
    " HTML
