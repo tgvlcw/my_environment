@@ -138,6 +138,7 @@ else
   colorscheme my_evening
   "colorscheme blackdust
   "hi CursorLine cterm=bold ctermbg=LightRed ctermfg=white
+  hi CursorLine cterm=NONE ctermbg=darkgrey guibg=lightgrey
   "hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white
 endif
 

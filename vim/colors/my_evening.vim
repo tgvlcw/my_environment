@@ -13,7 +13,8 @@ endif
 
 let colors_name = "evening"
 
-hi Normal ctermbg=DarkGrey ctermfg=White guifg=White guibg=grey20
+"hi Normal ctermbg=black ctermfg=White guifg=White guibg=grey30
+hi Normal ctermbg=237 ctermfg=254 guifg=White guibg=grey30
 
 " Groups used in the 'highlight' and 'guicursor' options default value.
 hi ErrorMsg term=standout ctermbg=DarkRed ctermfg=White guibg=Red guifg=White
@@ -22,7 +23,7 @@ hi ModeMsg term=bold ctermfg=Yellow ctermbg=NONE cterm=bold
 hi StatusLine term=reverse,bold cterm=reverse,bold gui=reverse,bold
 hi StatusLineNC term=reverse cterm=reverse gui=reverse
 hi VertSplit term=reverse cterm=reverse gui=reverse
-hi Visual term=reverse ctermbg=black guibg=grey60
+hi Visual cterm=reverse ctermbg=0 guibg=grey60
 hi VisualNOS term=underline,bold cterm=underline,bold gui=underline,bold
 hi DiffText term=reverse cterm=bold ctermbg=Red gui=bold guibg=Red
 hi Cursor guibg=Green guifg=Black

@@ -16,12 +16,15 @@ def init_windows():
     os.system('mklink .vimrc %s\\vimrc' %config_dir)
     os.system('mklink .vim %s\\vim' %config_dir)
     os.system('mklink vim_local %s\\vim_local' %config_dir)
+    os.system('mklink work %s\\..\\..\\work' %config_dir)
 
 def init_linux():
     os.system('ln -s %s/bashrc %s/.bashrc' %(config_dir ,home_dir))
     os.system('ln -s %s/vimrc %s/.vimrc' %(config_dir, home_dir))
     os.system('ln -s %s/vim %s/.vim' %(config_dir, home_dir))
     os.system('ln -s %s/vim_local %s/vim_local' %(config_dir, home_dir))
+    os.system('ln -s %s/../../work %s/work' %(config_dir, home_dir))
+
 
 def delete_file(file_name):
     file_path = "%s/%s" %(home_dir, file_name)
